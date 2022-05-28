@@ -1,0 +1,110 @@
+
+{%extends 'base.html'%}
+
+{%block style%}
+
+<style type="text/css">
+    .message-container{
+        min-height:70vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 10px;
+    }
+    .message-body{
+        min-height: 15vh;
+        width: 60%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: silver;
+    }
+    .message-image{
+        max-height: 25vh;
+        max-width: 20%;
+    }
+    #message-image{
+        height: 100px;
+        width: 100px;
+    }
+    .client-info{
+        display: flex;
+        flex-direction: column;
+        min-height: inherit;
+        width: 80%;
+        align-items: flex-start;
+        justify-content: space-around;
+    }
+    .link{
+        text-decoration: none;
+        color: white;
+        height: 30px;
+        min-width: 150px;
+        background: #08012b;
+        text-align: center;
+        border: none;
+    }
+    .link:hover{
+        background: white;
+        color: #08012b;
+    }
+    @media screen and (max-width: 500px) {
+        .message-body{
+            width: 80%;  
+            flex-direction: column;
+            margin-top: 10px;
+        }
+    }
+</style>
+
+{%endblock%}
+<!-- {{message_info}} -->
+
+{%block content%}
+
+<div class="message-container">
+    <!-- the first div holds the information of the client -->
+    <div class="message-body">
+        <section class="message-image">
+            <img src="{{message_info.notification_order.client.profilepic.url}}" alt="" id="message-image">
+        </section>
+        <section class="client-info">
+            <p>{{message_info.notification_order.client.username}},</p>
+            <p>Kaloleni</p>
+            <p>{{message_info.notification_order.timestamp}}</p>
+            <p>{{message_info.notification_order.description}}</p>
+        </section>
+    </div>
+
+    <!-- this second div holds the information of the toonie -->
+    <div class="message-body">
+        <section class="message-image">
+            <img src="{{message_info.sender.profilepic.url}}" alt="" id="message-image">
+        </section>
+        <section class="client-info">
+            <p>You: {{message_info.sender.username}}</p>
+            <p>{{message_info.body}}</p>
+            <p>{{message_info.timestamp}}</p>
+        </section>
+    </div>
+
+    <h1>Replies</h1>
+    {%for message in toonie_messages%}
+    <div class="message-body">
+        <section class="message-image">
+            <img src="{{message.message.notification_order.client.profilepic.url}}" alt="" id="message-image">
+        </section>
+        <section class="client-info">
+            <p>{{message.message.notification_order.client.username}}</p>
+            <p>{{message.body}}</p>
+            <p>{{message.timestamp}}</p>
+            <a href="{%url 'client-contact' message.id%}" class="link">View {{message.message.notification_order.client.username}}'s Contacts</a>
+        </section>
+    </div>
+    {%endfor%}
+
+</div>
+
+{%endblock%}

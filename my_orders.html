@@ -1,0 +1,68 @@
+{%extends 'base.html'%}
+
+{%block style%}
+
+<style type="text/css">
+    .order-container{
+        margin-top: 10px;
+        min-height: 25vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .order-body{
+        min-height: 20vh;
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: silver;
+        color: black;
+        justify-content: space-around;
+        margin-left: 10px;
+    }
+    .link{
+        text-decoration: none;
+        color: white;
+        height: 20px;
+        width: 100px;
+        background: #08012b;
+        text-align: center;
+    }
+    .link:hover{
+        background: white;
+        color: #08012b;
+    }
+
+    @media screen and (max-width: 500px) {
+        .order-container{
+            width: 100%;  
+        }
+        .descr{
+            margin-left: 5px;
+        }
+    }
+
+</style>
+
+{%endblock%}
+
+
+{%block content%} 
+
+
+{%for order in orders%}
+<div class="order-container">
+
+    <div class="order-body">
+        <p class="descr">{{order.description}}</p>
+        <a href="{%url 'order-detail' order.id%}" class="link">View Order</a>
+    </div>
+
+</div>
+{%endfor%}
+
+
+{%endblock%}

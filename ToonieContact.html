@@ -1,0 +1,84 @@
+{%extends 'base.html'%}
+{%block style%}
+
+<style type="text/css">
+    .link{
+        text-decoration: none;
+        color: white;
+        height: 50px;
+        width: 150px;
+        background: #08012b;
+        text-align: center;
+        border: none;
+    }
+    .link:hover{
+        background: white;
+        color: #08012b;
+    }
+    #toon-image{
+        width: 100px;
+        height: 100px;
+    }
+    .toon-prof-container{
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .toon-prof{
+        min-height: 70vh;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: silver;
+        justify-content: space-around;
+    }
+    .bottom{
+        min-height: 20vh;
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        background: silver;
+    }
+    .descr{
+        margin-left: 10px;
+    }
+    @media screen and (max-width: 500px) {
+        .bottom{
+            background: transparent;
+        }
+    }
+</style>
+
+{%endblock%}
+
+{%block content%}
+<div class="toon-prof-container">
+    <div class="toon-prof">
+        <img src="{{message.sender.profilepic.url}}" alt="" id="toon-image">
+        <p>{{message.sender.username}}</p>
+        <p>{{message.sender.rating}}</p>
+        <p class="descr">{{message.sender.description}}</p>
+    </div>
+
+
+  <div class="bottom">
+    <form action="{%url 'reject'%}" method="post">
+        {%csrf_token%}
+        <input type="hidden" name="message_id" value="{{message.id}}">
+        <button type="submit" class="link">Reject</button>
+    </form>
+
+    <form action="{%url 'hire'%}" method="post">
+        {%csrf_token%}
+        <input type="hidden" name="message_id" value="{{message.id}}">
+        <button type="submit" class="link">Hire</button>
+    </form>
+  </div>
+</div>    
+{%endblock%}

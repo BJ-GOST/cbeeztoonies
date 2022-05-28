@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Group</title>
+    <style type="text/css">
+        body{
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            font-family: 'montserrat';
+			background: linear-gradient(120deg, #030011, #070125);
+            color: yellow;
+        }
+        .container{
+            min-height: 100vh;
+            width: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .form{
+            height: 70vh;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .inner-container{
+            display: flex;
+            flex-direction: column;
+            height: 20vh;
+            width: 30%;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .btn{
+			height: 30px;
+			width: 100px;
+			color: rgb(0, 0, 20);
+			background: yellow;
+			border: 0px;
+		}
+		.btn:hover{
+			background: rgb(0, 0, 20);
+			color: yellow;
+			height: 35px;
+			width: 105px;
+		}
+
+    </style>
+</head>
+<body>
+   
+    <div class="container">
+        <form method="post" class="form">
+            <h1>What is your business on toonie</h1>
+            {%csrf_token%}
+            <div class="inner-container">
+                {{form.job}}
+            </div>
+            <button class="btn">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

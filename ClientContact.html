@@ -1,0 +1,72 @@
+{%extends 'base.html'%}
+{%block style%}
+
+<style type="text/css">
+    .link{
+        text-decoration: none;
+        color: white;
+        height: 30px;
+        width: 150px;
+        background: #08012b;
+        text-align: center;
+        border: none;
+    }
+    .link:hover{
+        background: white;
+        color: #08012b;
+    }
+    #toon-image{
+        width: 100px;
+        height: 100px;
+    }
+    .toon-prof-container{
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .toon-prof{
+        min-height: 70vh;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: silver;
+        justify-content: space-around;
+    }
+    .bottom{
+        min-height: 20vh;
+        width: 50%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-evenly;
+        background: silver;
+    }
+    .descr{
+        margin-left: 10px;
+    }
+</style>
+
+{%endblock%}
+
+{%block content%}
+{%if 'turned down' in toonie_message.body%}
+<div class="toon-prof-container">
+    <div class="toon-prof">
+        <h1>Sorry you can not view this contacts</h1>
+    </div>
+</div>
+{%else%}
+<div class="toon-prof-container">
+    <div class="toon-prof">
+        <img src="{{toonie_message.message.notification_order.client.profilepic.url}}" alt="" id="toon-image">
+        <p>{{toonie_message.message.notification_order.client.username}}</p>
+        <p>{{toonie_message.message.notification_order.client.email}}</p>
+        <p>{{toonie_message.message.notification_order.client.phone}}</p>
+        <p class="descr">{{toonie_message.message.notification_order.client.description}}</p>
+    </div>
+{%endif%}
+{%endblock%}

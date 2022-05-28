@@ -1,0 +1,78 @@
+{%extends 'base.html'%}
+
+
+{%block style%}
+<style type="text/css">
+.link{
+    text-decoration: none;
+    color: white;
+    height: 50px;
+    width: 150px;
+    background: #08012b;
+    text-align: center;
+    border: none;
+}
+.link:hover{
+    background: white;
+    color: #08012b;
+}
+#toon-image{
+    width: 100px;
+    height: 100px;
+}
+.toon-prof-container{
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.toon-prof{
+    min-height: 70vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: silver;
+    justify-content: space-around;
+}
+.bottom{
+    min-height: 20vh;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    background: silver;
+}
+.descr{
+    margin-left: 10px;
+}
+</style>
+
+{%endblock%}
+
+{%block content%}
+<div class="toon-prof-container">
+    <div class="toon-prof">
+        <img src="{{notification.owner.profilepic.url}}" alt="" id="toon-image">
+        <p>{{notification.owner.username}}</p>
+        <p>{{notification.owner.address}}</p>
+        <p class="descr">{{notification.owner.description}}</p>
+        <p class="descr">{{notification.body}}, {{notification.timestamp}}</p>
+        <p class="descr">Job: {{notification.order.description}}</p>
+    </div>
+
+    <div class="bottom">
+        <form action="{%url 'accept'%}" method="post">
+            {%csrf_token%}
+            <input type="hidden" name="notif_id" value="{{notification.id}}">
+            <button type="submit" class="link">Accept</button>
+        </form>
+    </div>
+
+</div>
+
+
+{%endblock%}

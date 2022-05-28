@@ -1,0 +1,412 @@
+
+	
+<!-- the clients' profile begins here; make sure to check -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cbeez Toonie</title>
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'kumbh Sans', Sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .navbar {
+            background: #08012b;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            position: relative;
+            top: 0;
+            z-index: 999;
+        }
+        
+        .navbar__container {
+            display: flex;
+            justify-content: space-between;
+            height: 80px;
+            z-index: 1;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+        
+        #navbar__logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .navbar__menu {
+            display: flex;
+            align-items: center;
+            list-style: none;
+        }
+        
+        .navbar__items {
+            height: 80px;
+        }
+        
+        .navbar__links {
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 120px;
+            text-decoration: none;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar__btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 1rem;
+            width: 100%;
+        }
+        
+        .button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 20px;
+            height: 100%;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            outline: none;
+            background: #833ab4;
+            background: -webkit-linear-gradient(to right, #000107, #090138);
+            background: linear-gradient(to right, #000107, #090138);
+            color: yellow;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar__links:hover {
+            color: #044b6e;
+            transition: all 0.3s ease;
+        }
+        @media screen and (max-width: 960px) {
+    .navbar__container {
+        display: flex;
+        justify-content: space-between;
+        height: 80px;
+        z-index: 1;
+        width: 100%;
+        max-width: 1300px;
+        padding: 0;
+    }
+    .navbar__menu {
+        display: grid;
+        grid-template-columns: auto;
+        margin: 0;
+        width: 100%;
+        position: absolute;
+        top: -1000px;
+        opacity: 1;
+        transition: all 0.5s ease-in-out;
+        z-index: -1;
+    }
+    .navbar__menu.active {
+        background: #010525;
+        top: 100%;
+        opacity: 1;
+        transition: all 0.5s ease;
+        z-index: 99;
+        height: 60vh;
+        font-size: 1.6rem;
+    }
+    #navbar__logo {
+        padding-left: 25px;
+        /* to be replaced with the logo */
+    }
+    .navbar__toggle .bar {
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        transition: all 0.3s ease-in-out;
+        background: #ffff;
+    }
+    .navbar__items {
+        width: 100%;
+    }
+    .navbar__links {
+        text-align: center;
+        padding: 2rem;
+        width: 100%;
+        display: table;
+    }
+    .navbar__btn {
+        padding-bottom: 2rem;
+    }
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        height: 80px;
+        margin: 0;
+    }
+    #mobile-menu {
+        position: absolute;
+        top: 20%;
+        right: 5%;
+        transform: translate(5%, 20%);
+    }
+    .navbar__toggle .bar {
+        display: block;
+        cursor: pointer;
+    }
+    #mobile-menu.is-active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    #mobile-menu.is-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    #mobile-menu.is-active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+        .container{
+            min-height: 100vh;
+            width:100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .profile{
+            min-height: 80vh;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            background: silver;
+            color: black;
+            border-radius: 10px;
+        }
+        .image{
+            height: 100px;
+            width: 100px;
+            border: solid 1px white;
+            border-radius: 50%;
+        }
+        .info{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 40vh;
+            justify-content: space-around;
+            background: #08012b;
+            color: white;
+            width: 100%;
+        }
+        
+    </style>
+
+
+    {%block style%}
+    {%endblock%}
+
+
+</head>
+
+{%load auth_extras%}
+{%if request.user|has_group:"Clients" %}
+<!-- the client profile begins -->
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="#home" id="navbar__logo">Cbeez Toonie</a>
+            <!-- <img src="Apper.png" alt="Home"> -->
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__items">
+                    <a href="{%url 'profile' user.id%}" class="navbar__links" id="messages">Profile</a>
+                </li>
+                <li class="navbar__items">
+                    <a href="{%url 'hire-toonie' %}" class="navbar__links" id="home-page">Hire</a>
+                </li>
+                <li class="navbar__items">
+                	<a href="{%url 'my-orders' user.id %}" class="navbar__links" id="home-page">My Orders</a>
+                </li> 
+                <li class="navbar__btn">
+                    <a href="{%url 'logout'%}" class="button" id="signup">Log-out</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="profile">
+            <h3>Client</h3>
+            <h4>Hello {{request.user.username}}</h4>
+            <section class="profilepic">
+                {%if request.user.profilepiic.url%}
+                <img src="{{request.user.profilepic.url}}" alt="" class="image">
+                {%else%}
+                <img src="" class="image">
+                {%endif%}
+            </section>
+            <section class="info">
+                <section class="description">
+                    {{request.user.description}}
+                </section>
+                <label for="">Phone Contact</label>
+                <label for="">{{request.user.phone}}</label>
+                <label for="">Email Contact</label>
+                <label for="">{{request.user.email}}</label>
+            </section>
+        </div>
+    </div>
+
+    {%block content%}
+    {%endblock%}
+
+{%elif request.user|has_group:"Toonies" %}
+<!-- the toonies' profile begins here make sure to check -->
+
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="#home" id="navbar__logo">Cbeez Toonie</a>
+            <!-- <img src="Apper.png" alt="Home"> -->
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__items">
+                    <a href="{%url 'profile' user.id%}" class="navbar__links" id="messages">Profile</a>
+                </li>
+                <li class="navbar__items">
+                    <a href="{%url 'notif'%}" class="navbar__links" id="messages">Notifications</a>
+                </li>
+                <li class="navbar__items">
+                    <a href="{%url 'my-messages' user.id%}" class="navbar__links" id="home-page">Messages</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="{%url 'logout'%}" class="button" id="signup">Log-out</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    
+
+    <div class="container">
+        <div class="profile">
+            <h3>JOB: Toonie</h3>
+            <h4>Hello {{request.user.username}}</h4>
+            <section class="profilepic">
+                {%if request.user.profilepiic.url%}
+                <img src="{{request.user.profilepic.url}}" alt="" class="image">
+                {%else%}
+                <img src="" class="image">
+                {%endif%}
+            </section>
+           
+            <section class="info">
+                <section class="description">
+                    {{request.user.description}}
+                </section>
+                <label for="">Phone Contact</label>
+                <label for="">{{request.user.phone}}</label>
+                <label for="">Email Contact</label>
+                <label for="">{{request.user.email}}</label>
+            </section>
+        </div>
+    </div>
+
+
+{%else%}
+<!-- the drivers' profile begins here make sure to see -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="#home" id="navbar__logo">Cbeez Toonie</a>
+            <!-- <img src="Apper.png" alt="Home"> -->
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__items">
+                    <a href="{%url 'profile' user.id%}" class="navbar__links" id="messages">Profile</a>
+                </li>
+                <li class="navbar__items">
+                    <a href="#messages" class="navbar__links" id="messages">Notifications</a>
+                </li>
+                <li class="navbar__items">
+                    <a href="#" class="navbar__links" id="home-page">Messages</a>
+                </li>
+                <li class="navbar__btn">
+                    <a href="{%url 'logout'%}" class="button" id="signup">Log-out</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    
+
+    <div class="container">
+        <div class="profile">
+            <h3>JOB: Driver</h3>
+            <h4>Hello {{request.user.username}}</h4>
+            <section class="profilepic">
+                {%if request.user.profilepiic.url%}
+                <img src="{{request.user.profilepic.url}}" alt="" class="image">
+                {%else%}
+                <img src="" class="image">
+                {%endif%}
+            </section>
+            <section class="info">
+                <section class="description">
+                    {{request.user.description}}
+                </section>
+                <label for="">Phone Contact</label>
+                <label for="">{{request.user.phone}}</label>
+                <label for="">Email Contact</label>
+                <label for="">{{request.user.email}}</label>
+            </section>
+        </div>
+    </div>
+{%endif%}
+
+<script>
+    const menu = document.querySelector('#mobile-menu');
+    const menuLinks = document.querySelector('.navbar__menu');
+
+    //funtion to display menu
+    const mobileMenu = () => {
+        menu.classList.toggle('is-active');
+        menuLinks.classList.toggle('active');
+    }
+    menu.addEventListener('click', mobileMenu);
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,9 @@
+{%if request.user.groups.filter(name=Clients)%}
+	<h1>Client Profile</h1>
+{%elif request.user.groups.filter(name=Drivers)%}
+	<h1>Driver Profile</h1>
+{%elif request.user.groups.filter(name=Toonies)%}
+	<h1>Toonie Profile</h1>
+{%else%}
+	<h1>None of the above</h1>
+{%endif%}

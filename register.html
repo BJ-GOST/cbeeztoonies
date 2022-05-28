@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Toonie Customer Register Page</title>
+	<style type="text/css">
+		body{
+			font-family: 'montserrat';
+			background: rgb(0, 0, 20);
+		}
+
+		.container{
+			min-height: 100vh;
+			width: inherit;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.form{
+			min-height: 100vh;
+			display: flex;
+			flex-direction: row;
+			width: 90%;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.inner-container{
+			min-height: 70vh;
+			width: 40%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-around;
+			border-radius: 10px;
+			background: silver;
+			color: black;
+		}
+		#container{
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+		.btn{
+			height: 30px;
+			width: 100px;
+			color: rgb(0, 0, 20);
+			background: yellow;
+			border: 0px;
+		}
+		.btn:hover{
+			background: rgb(0, 0, 20);
+			color: yellow;
+			height: 35px;
+			width: 105px;
+		}
+
+
+		 @media screen and (max-width: 900px) {
+        .form{
+            flex-direction: column;
+            width: 100%;
+        	}
+        .inner-container{
+        	width: 100%;
+        	margin-top: 10px;
+        }
+    	}
+
+		
+	</style>
+</head>
+<body>
+	
+	<div class="container">
+		<form method="POST" enctype='multipart/form-data' class="form">
+			{%csrf_token%}
+			<div class="inner-container">
+				<h1>Register</h1>
+				<div id='container'>
+					{{form.username}}
+				</div>
+				<div id="container">
+					{{form.email}}
+				</div>
+
+				<div id="container">
+					{{form.description}}
+				</div>
+			</div>
+
+			<div class="inner-container">
+
+				<div id="container">
+					{{form.phone}}
+				</div>
+	
+				<div id="container">
+					<label for="">{{form.password1.label}}</label>
+					{{form.password1}}
+				</div>
+				<div id="container">
+					<label for="">{{form.password2.label}}</label>
+					{{form.password2}}
+				</div>
+				
+				<div id="container">
+					<label for="" >
+						{{form.profilepic}}
+					</label>
+				</div>
+
+				<button class="btn" type="submit">SignUp</button>
+				{{form.errors}}
+			</div>
+		</form>
+	</div>
+</body>
+</html>
